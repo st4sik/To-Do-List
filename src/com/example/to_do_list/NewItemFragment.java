@@ -40,7 +40,6 @@ public class NewItemFragment extends Fragment{
 		public void onNewItemAdded (String newItem);
 
 	}
-	//private OnNewItemAddedListener onNewItemAddedListener;
 	
 	@Override
 	public void onAttach (Activity activity)

@@ -83,22 +83,16 @@ public class ToDoContetnProvider extends ContentProvider {
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
 SQLiteDatabase db = myOpenHelper.getWritableDatabase();
-	    
-	    // To add empty rows to your database by passing in an empty Content Values
-	    // object, you must use the null column hack parameter to specify the name of
-	    // the column that can be set to null.
+	   
 	    String nullColumnHack = null;
 	    
-	    // Insert the values into the table
 	    long id = db.insert(MySQLiteOpenHelper.DATABASE_TABLE, 
 	        nullColumnHack, values);
 	    
 	    if (id > -1) {
-	      // Construct and return the URI of the newly inserted row.
-	      Uri insertedId = ContentUris.withAppendedId(CONTENT_URI, id);
+	    	Uri insertedId = ContentUris.withAppendedId(CONTENT_URI, id);
 	      
-	      // Notify any observers of the change in the data set.
-	      getContext().getContentResolver().notifyChange(insertedId, null);
+	    	getContext().getContentResolver().notifyChange(insertedId, null);
 	      
 	      return insertedId;
 	    }
@@ -121,15 +115,13 @@ SQLiteDatabase db = myOpenHelper.getWritableDatabase();
 	      default: break;
 	    }
 	    
-	    // To return the number of deleted items, you must specify a where
-	    // clause. To delete all rows and return a value, pass in "1".
 	    if (selection == null)
 	      selection = "1";
 
-	    // Execute the deletion.
+	    
 	    int deleteCount = db.delete(MySQLiteOpenHelper.DATABASE_TABLE, selection, selectionArgs);
 	    
-	    // Notify any observers of the change in the data set.
+	    
 	    getContext().getContentResolver().notifyChange(uri, null);
 	    
 	    return deleteCount;
@@ -142,7 +134,6 @@ SQLiteDatabase db = myOpenHelper.getWritableDatabase();
 		
 		SQLiteDatabase db = myOpenHelper.getWritableDatabase();
 	    
-	    // If this is a row URI, limit the deletion to the specified row.
 	    switch (uriMatcher.match(uri)) {
 	      case SINGLE_ROW : 
 	        String rowID = uri.getPathSegments().get(1);
@@ -152,11 +143,9 @@ SQLiteDatabase db = myOpenHelper.getWritableDatabase();
 	      default: break;
 	    }
 
-	    // Perform the update.
 	    int updateCount = db.update(MySQLiteOpenHelper.DATABASE_TABLE, 
 	      values, selection, selectionArgs);
 
-	    // Notify any observers of the change in the data set.
 	    getContext().getContentResolver().notifyChange(uri, null);
 
 	    return updateCount;
@@ -170,7 +159,6 @@ SQLiteDatabase db = myOpenHelper.getWritableDatabase();
 		public MySQLiteOpenHelper(Context context, String name,
 				CursorFactory factory, int version) {
 			super(context, name, factory, version);
-			// TODO Auto-generated constructor stub
 		}
 		
 		
@@ -204,10 +192,5 @@ SQLiteDatabase db = myOpenHelper.getWritableDatabase();
 		
 		
 	}
-	
 	public static final Uri CONTENT_URI=Uri.parse("content://com.example.todoprovider/todoitems");
-	
-	
-	
-
 }
